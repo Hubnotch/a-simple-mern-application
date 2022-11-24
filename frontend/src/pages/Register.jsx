@@ -1,7 +1,7 @@
-/* eslint-disable no-unused-vars */
+
 import React from 'react'
-import {useState, useEffect} from 'react'
-import {FaUser} from 'react-icons/fa'
+import { useState } from 'react'
+import { FaUser } from 'react-icons/fa'
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -11,21 +11,73 @@ function Register() {
     password2: ''
   })
 
-const {name, email, password, password2} = formData;
+  const { name, email, password, password2 } = formData;
 
-const onChange =() => (e) => {}
+  const onChange = (e) => {
+    setFormData((prevState) =>
+      ({ 
+        ...prevState, [e.target.name]: e.target.value 
+      }))
+  }
+  const onSubmit = () => (e) => {
+    e.preventDefault()
+  }
 
   return (
     <>
       <section className="heading">
         <h1>
-          <FaUser/> Register
+          <FaUser /> Register
         </h1>
         <p>Please create an account to continue</p>
       </section>
       <section className="form">
-        <form>
-          <input className='form-control' value={name} type="text" name="name" id="name" placeholder='Enter your name' onChange={onChange}/>
+        <form onSubmit={onSubmit}>
+          <div className="form-group">
+            <input
+              type="text"
+              className='form-control'
+              name="name"
+              id="name"
+              value={name}
+              placeholder='Enter your name'
+              onChange={onChange} />
+          </div>
+          <div className="form-group">
+            <input
+              type="email"
+              className='form-control'
+              name="email"
+              id="email"
+              value={email}
+              placeholder='Enter your email'
+              onChange={onChange} />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              className='form-control'
+              name="password"
+              id="password"
+              value={password}
+              placeholder='Enter your password'
+              onChange={onChange} />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              className='form-control'
+              name="password2"
+              id="password2"
+              value={password2}
+              placeholder='Confirm password'
+              onChange={onChange} />
+          </div>
+          <div className="form-group">
+            <button type="submit" className="btn btn-block">
+              Submit
+            </button>
+          </div>
         </form>
       </section>
     </>

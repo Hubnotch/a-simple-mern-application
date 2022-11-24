@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
-import {FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icon';
+import React from 'react'
+
+import {FaSignInAlt, FaUser} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 
 function Headers() {
