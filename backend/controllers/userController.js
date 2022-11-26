@@ -3,6 +3,13 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 
+// Generate JWT
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d',
+    })
+}
+
 // @desc    Register new user
 // @route   POST /api/users
 // @access  Public
@@ -54,7 +61,6 @@ const loginUser = asyncHandler(async (req, res) => {
 
     // Check for user email
     const user = await User.findOne({ email })
-
     if (user && (await bcrypt.compare(password, user.password))) {
         res.json({
             _id: user.id,
@@ -63,6 +69,7 @@ const loginUser = asyncHandler(async (req, res) => {
             token: generateToken(user._id),
         })
     } else {
+        // console.log('Reached here')
         res.status(400)
         throw new Error('Invalid credentials')
     }
@@ -75,12 +82,7 @@ const getMe = asyncHandler(async (req, res) => {
     res.status(200).json(req.user)
 })
 
-// Generate JWT
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '30d',
-    })
-}
+
 
 module.exports = {
     registerUser,
